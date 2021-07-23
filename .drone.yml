@@ -9,6 +9,7 @@ steps:
     commands:
       - yamllint -d relaxed .drone.yml
       - yamllint -d relaxed docker-compose.yml
+      - yamllint -d relaxed prometheus/prometheus.yml
   - name: dockerfile_lint
     image: hadolint/hadolint:2.5.0-alpine
     commands:

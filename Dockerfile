@@ -14,7 +14,7 @@ RUN curl -L http://www.squid-cache.org/Versions/v4/squid-4.16.tar.bz2 \
 WORKDIR /usr/local/src/squid-4.16
 
 RUN ./configure --prefix=/usr/local/squid \
- && make \
+ && make -j4 \
  && make install
 
 FROM ubuntu:20.04 AS runtime

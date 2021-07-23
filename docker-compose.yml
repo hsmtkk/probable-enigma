@@ -14,9 +14,15 @@ services:
       - /dev/kmsg
   prober:
     image: cloudprober/cloudprober:v0.11.2
-  proxy:
+    volumes:
+      - ./prober/cloudprober.cfg:/etc/cloudprober.cfg:ro
+  squid:
     image: hsmtkk/probable-enigma:squid-4.16
+    volumes:
+      - ./squid/squid.conf:/usr/local/squid/etc/squid.conf:ro
   prometheus:
     image: prom/prometheus:v2.28.1
+    volumes:
+      - ./prometheus/prometheus:/etc/prometheus/prometheus.yml:ro
   loki:
     image: grafana/loki:2.2.1
