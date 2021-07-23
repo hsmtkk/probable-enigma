@@ -1,3 +1,4 @@
+---
 version: "3.8"
 services:
   cadvisor:
@@ -19,4 +20,3 @@ services:
     image: prom/prometheus:v2.28.1
   loki:
     image: grafana/loki:2.2.1
-

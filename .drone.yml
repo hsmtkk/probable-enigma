@@ -7,8 +7,8 @@ steps:
   - name: yml_lint
     image: sdesbure/yamllint:latest
     commands:
-      - yamllint .drone.yml
-      - yamllint docker-compose.yml
+      - yamllint -d relaxed .drone.yml
+      - yamllint -d relaxed docker-compose.yml
   - name: dockerfile_lint
     image: hadolint/hadolint:2.5.0-alpine
     commands:
