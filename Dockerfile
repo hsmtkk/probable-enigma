@@ -17,3 +17,10 @@ RUN ./configure --prefix=/usr/local/squid \
  && make \
  && make install
 
+FROM ubuntu:20.04 AS runtime
+
+COPY --from=builder /usr/local/squid /usr/local/squid
+COPY squid.conf /usr/local/squid/etc/squid.conf
+
+ENTRYPOINT ["/usr/local/squid/sbin/squid"]
+
