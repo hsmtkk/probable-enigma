@@ -1,0 +1,24 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: yml_lint
+    image: sdesbure/yamllint:latest
+    commands:
+      - yamllint .drone.yml
+      - yamllint docker-compose.yml
+  - name: dockerfile_lint
+    image: hadolint/hadolint:2.5.0-alpine
+    commands:
+      - hadolint --ignore DL3008 Dockerfile
+  - name: squid_docker
+    image: plugins/docker
+    settings:
+      username: hsmtkk
+      password:
+        from_secret: docker_hub_token
+      repo: hsmtkk/probable-enigma
+      tags:
+        - squid-4.16
