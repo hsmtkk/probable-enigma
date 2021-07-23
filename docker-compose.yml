@@ -20,9 +20,17 @@ services:
     image: hsmtkk/probable-enigma:squid-4.16
     volumes:
       - ./squid/squid.conf:/usr/local/squid/etc/squid.conf:ro
+      - squid_log:/usr/local/squid/var/logs
+  promtail:
+    image: grafana/promtail:2.2.1
+    volumes:
+      - ./promtail/config.yml:/etc/promtail/config.yml:ro
+      - squid_log:/usr/local/squid/var/logs:ro
   prometheus:
     image: prom/prometheus:v2.28.1
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-#  loki:
-#    image: grafana/loki:2.2.1
+  loki:
+    image: grafana/loki:2.2.1
+volumes:
+  squid_log:
