@@ -20,7 +20,9 @@ RUN ./configure --prefix=/usr/local/squid \
 FROM ubuntu:20.04 AS runtime
 
 COPY --from=builder /usr/local/squid /usr/local/squid
-COPY squid.conf /usr/local/squid/etc/squid.conf
+COPY ./squid/squid.conf /usr/local/squid/etc/squid.conf
 
-ENTRYPOINT ["/usr/local/squid/sbin/squid"]
+RUN chown -R nobody:nogroup /usr/local/squid/var/logs
+
+ENTRYPOINT ["/usr/local/squid/sbin/squid", "-d", "1", "-N"]
 
